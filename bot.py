@@ -1,4 +1,3 @@
-
 import json
 import logging
 import os
@@ -31,8 +30,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("📬 Tạo mail mới", callback_data="create_mail")],
         [InlineKeyboardButton("📥 Hộp thư đến", callback_data="inbox")]
     ]
-    await update.message.reply_text("🧙‍♂️ Chào mừng đến với bot mail ảo!
-Chọn chức năng:", reply_markup=InlineKeyboardMarkup(keyboard))
+    await update.message.reply_text(
+        "🧙‍♂️ Chào mừng đến với bot mail ảo!\nChọn chức năng:", 
+        reply_markup=InlineKeyboardMarkup(keyboard)
+    )
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -57,11 +58,9 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not messages:
             await query.edit_message_text("📭 Hộp thư trống.")
             return
-        text = "📨 Thư mới:
-"
+        text = "📨 Thư mới:\n"
         for msg in messages[:5]:
-            text += f"- {msg.get('from')} | {msg.get('subject')}
-"
+            text += f"- {msg.get('from')} | {msg.get('subject')}\n"
         await query.edit_message_text(text)
 
 if __name__ == "__main__":
